@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 
 
 const sectorSchema = mongoose.Schema({
-   
-    sector: {
-        type: String,
+    name: {
+      type: String,
+      required: true,  
+    },
+    selectedValues: {
+        type: Array,
         required: true,
     }
 })

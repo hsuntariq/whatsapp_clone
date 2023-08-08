@@ -4,13 +4,13 @@ const Sector = require('../models/sectorModel');
 
 const postSector = AsyncHandler(async (req, res) => {
     const {
-        sector
+        name,selectedValues
     } = req.body;
-    if(!sector){
+    if(!name || !selectedValues){
         throw new Error('Respective Field is Required');
     }
     const sectors = await Sector.create({
-        sector
+        name,selectedValues
     });
     res.status(200).json(sectors)
 
