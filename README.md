@@ -9,7 +9,6 @@ This project is a WhatsApp clone built using the MERN (MongoDB, Express.js, Reac
 - Real-time messaging using Socket.IO.
 - User authentication and registration.
 - Group chats and direct messaging.
-- ...
 
 ## Getting Started
 
