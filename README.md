@@ -3,6 +3,7 @@
 This project is a WhatsApp clone built using the MERN (MongoDB, Express.js, React, Node.js) stack and Socket.IO for real-time messaging.
 
 ![WhatsApp Clone](assets/whatsapp.PNG)
+![WhatsApp Clone](assets/registration.PNG)
 
 ## Features
 
