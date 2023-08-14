@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import MessageBar from "./MessageBar"
-// import Sidebar from "./Sidebar"
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import MessageBar from "./MessageBar"
+import Sidebar from "./Sidebar"
 import Test from "./Test"
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import AddEntry from './AddEntry';
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
 
-      <Router>
+      {/* <Router>
         <Head/>
         <Routes>
           
@@ -24,7 +24,11 @@ const App = () => {
           <Route path='/get-entry' element={<GetSectors/>}/>
         </Routes>
       </Router>
-      <ToastContainer/>
+      <ToastContainer/> */}
+      <main>
+        <Sidebar/>
+        <MessageBar/>
+      </main>
     </>
   )
 }

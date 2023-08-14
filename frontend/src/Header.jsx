@@ -1,17 +1,22 @@
 import {BiSolidUserCircle} from 'react-icons/bi'
 // import {FaUserGroup} from 'react-icons/fa'
-// import {BsFillChatLeftTextFill} from 'react-icons/bs'
 import { BsChatLeftTextFill } from 'react-icons/bs'
-import { FaUserGroup } from 'react-icons/fa'
+import { MdGroup } from 'react-icons/md';
+import { FaEllipsisV } from 'react-icons/fa';
+import { FiCircle } from 'react-icons/fi';
+
 const Header = () => {
   return (
     <>
          <div className="header">
             <div className="avatar">
-                <BiSolidUserCircle/>
+          <BiSolidUserCircle />
             </div>
             <div className="icons">
                   <BsChatLeftTextFill />
+                  <MdGroup/>
+                  <FiCircle/>
+                  <FaEllipsisV/>
             </div>
          </div>
     </>

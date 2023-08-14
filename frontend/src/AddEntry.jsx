@@ -16,7 +16,7 @@ const AddEntry = () => {
   };
     const getData = async () => {
       try {
-        const data = await fetch('http://localhost:3001/api/get-sector')
+        const data = await fetch('https://dark-blue-fox-toga.cyclic.app/api/get-sector')
         if (!data.ok) {
             throw new Error('Network response was not ok');
           }
@@ -38,7 +38,7 @@ const AddEntry = () => {
     }else{
 
   try {
-    const data = await fetch('http://localhost:3001/api/post-sector', {
+    const data = await fetch('https://dark-blue-fox-toga.cyclic.app/api/post-sector', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
