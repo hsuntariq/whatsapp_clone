@@ -6,7 +6,8 @@ import { FaSearch } from 'react-icons/fa';
 import { MdFilterList } from 'react-icons/md';
 import { FiArrowRight } from 'react-icons/fi';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const [focus, setFocus] = useState(false);
@@ -28,25 +29,32 @@ const Sidebar = () => {
             {<MdFilterList />}
           </div>
         </section>
+        
         {data.map((person) => {
           return (
             <>
-              <div className="item">
+              <Link key={person.id} to={`/message/${person.id}`} style={{color:'white',textDecoration:'none'}}>
+              <div  className="item">
                 <div className="left">
 
                 <div className="image">
                   <img src={person.image} alt="" />
-                </div>
+                  </div>
+                
                 <div className="details">
                   <h4>{person.name}</h4>
                   <p>{person.message}</p>
                 </div>
                 </div>
+
                 <div className="time">
                   <p>{person.time}</p>
                   <h6 className='new-message'>{person.newMessage}</h6>
                 </div>
+
               </div>
+                </Link>
+
             </>
           )
         })}
