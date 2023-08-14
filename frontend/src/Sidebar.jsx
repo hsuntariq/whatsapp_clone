@@ -17,9 +17,9 @@ const Sidebar = () => {
         <section className="search-section">
           <div className="search-bar">
             {focus ? (
-                <span style={{color:'#00A884',transition:'all 0.2s5s',rotate:'180deg',fontSize:'1.5rem',alignSelf:'flex-start'}}>{<FiArrowRight/>}</span>
+                <span style={{color:'#00A884',transition:'all 0.25s',rotate:'180deg',fontSize:'1.5rem',alignSelf:'flex-start'}}>{<FiArrowRight/>}</span>
             ): (
-                <span style={{color:'#697881',transition:'all 0.2s5s',rotate:'0deg'}}>{<FaSearch/>}</span>
+                <span style={{color:'#697881',transition:'all 0.25s',rotate:'0deg'}}>{<FaSearch/>}</span>
 
             )}
             <input onFocus={()=>setFocus(true)} onBlur={()=>setFocus(false)}  type="text" placeholder= {focus ? '' : 'Search or start a new chat'} className="search" />
