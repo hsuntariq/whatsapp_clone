@@ -12,13 +12,13 @@ const App = () => {
   return (
     <>
 
-    {/* <Router>
+    <Router>
       <Routes>
           <Route path='/message/:id' element = {<MessageScreen/>} />
           <Route path='/' element = {<Home/>} />
       </Routes>
-    </Router> */}
-      <Register/>
+    </Router>
+      {/* <Register/> */}
     </>
   )
 }

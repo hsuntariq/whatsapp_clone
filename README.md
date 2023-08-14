@@ -4,6 +4,7 @@ This project is a WhatsApp clone built using the MERN (MongoDB, Express.js, Reac
 
 ![WhatsApp Clone](assets/whatsapp.PNG)
 ![WhatsApp Clone](assets/registration.PNG)
+![WhatsApp Clone](assets/chat.PNG)
 
 ## Features
 
