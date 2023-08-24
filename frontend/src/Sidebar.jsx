@@ -6,11 +6,27 @@ import { FaSearch } from 'react-icons/fa';
 import { MdFilterList } from 'react-icons/md';
 import { FiArrowRight } from 'react-icons/fi';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { getAllUsers, reset } from './features/auth/authSlice';
 
 const Sidebar = () => {
   const [focus, setFocus] = useState(false);
+  const { allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    try {
+      dispatch(getAllUsers());
+    } catch (error) {
+      toast(error);
+    }
+    dispatch(reset());
+  }, [dispatch, isError, message]);
   return (
     <>
       <Container className='sidebar'>
@@ -29,27 +45,27 @@ const Sidebar = () => {
             {<MdFilterList />}
           </div>
         </section>
-        
-        {data.map((person) => {
+        {}
+        {allUsers?.map((person) => {
           return (
             <>
-              <Link key={person.id} to={`/message/${person.id}`} style={{color:'white',textDecoration:'none'}}>
+              <Link key={person.id} to={`/message/${person._id}`} style={{color:'white',textDecoration:'none'}}>
               <div  className="item">
                 <div className="left">
 
                 <div className="image">
-                  <img src={person.image} alt="" />
+                  <img src={person?.photo} alt="" />
                   </div>
                 
                 <div className="details">
-                  <h4>{person.name}</h4>
-                  <p>{person.message}</p>
+                  <h4>{person?.username}</h4>
+                  {/* <p>{person.message}</p> */}
                 </div>
                 </div>
 
                 <div className="time">
-                  <p>{person.time}</p>
-                  <h6 className='new-message'>{person.newMessage}</h6>
+                  {/* <p>{person.time}</p> */}
+                  {/* <h6 className='new-message'>{person.newMessage}</h6> */}
                 </div>
 
               </div>

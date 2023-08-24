@@ -20,8 +20,7 @@ app.use(express.urlencoded({
     extended: false
 }))
 
-app.use('/api/', require('./routes/sectorRoutes'));
-
+app.use('/api/user/',require('./routes/userRoutes'))
 // check for errors
 app.use(errorHandler)
 server.listen(3001,()=>console.log(`server started on port:3001`))

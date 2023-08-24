@@ -3,9 +3,9 @@ import { Container } from "react-bootstrap"
 const MessageBar = () => {
   return (
     <>
-        <Container className='message-bar'>
+        <div className='message-bar'>
             
-        </Container>
+        </div>
     </>
   )
 }

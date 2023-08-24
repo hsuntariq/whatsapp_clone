@@ -4,12 +4,13 @@
   "description": "whatsapp clone, with realtime chat feature",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "server": "nodemon index.js"
   },
   "author": "Hassan Tariq",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
