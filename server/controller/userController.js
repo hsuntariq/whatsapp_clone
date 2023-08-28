@@ -76,7 +76,15 @@ cron.schedule('0 0 * * *', async () => {
             // another date object to modify according to 24 hours
             const twentyFourHourAgo = new Date(currentDate);
             // set the hours to 24 hours earlier
-            twenty
+            twentyFourHourAgo.setHours(currentDate.getHours() - 24);
+
+            // filter the statuses older 24 hours
+            user.statusContent = user.statusContent.filter(entry => {
+                // make a variable to hold the date of status upload
+                const entryDate = new Date(entry.statusUpdatedAt.currentDate + ' ' + entry.statusUpdatedAt.formattedTime);
+                return entryDate >= twentyFourHourAgo
+            })
+
         })
     } catch (error) {
         
