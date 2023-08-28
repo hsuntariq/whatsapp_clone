@@ -2,8 +2,27 @@ import {AiOutlineClose, AiOutlineLoading} from 'react-icons/ai'
 import RecentStatus from './RecentStatus'
 import {data} from './data.js'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { getAllUsers, reset } from './features/auth/authSlice'
 const StatusSidebar = () => {
+  const { allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    try {
+      dispatch(getAllUsers());
+    } catch (error) {
+      toast(error);
+    }
+    dispatch(reset());
+  }, [dispatch, isError, message]);
+  
   return (
+    
     <>
     <main>
         <div className="status-sidebar">
@@ -25,9 +44,11 @@ const StatusSidebar = () => {
               <p style={{color:'#6d7276',margin:'0.5rem 1rem'}}>Recent</p>
 
               {/*  map over the statuses */}
-            {data.map((status)=>{
+            {!isLoading ? (allUsers?.map((status)=>{
               return <RecentStatus key={status.id} {...status} />
-            })}
+            })) : (
+              <div className="loader"></div>
+            ) }
           
         </div>
         <div className="status-media">
