@@ -68,34 +68,47 @@ const addStatus = AsyncHandler(async (req, res) => {
 
 cron.schedule('0 0 * * *', async () => {
     try {
-        // find all the users
         const users = await User.find();
-        users.forEach(async user => {
-            // current date
+
+        for (const user of users) {
             const currentDate = new Date();
-            // another date object to modify according to 24 hours
-            const twentyFourHourAgo = new Date(currentDate);
-            // set the hours to 24 hours earlier
-            twentyFourHourAgo.setHours(currentDate.getHours() - 24);
+            const twentyFourHoursAgo = new Date(currentDate);
+            twentyFourHoursAgo.setHours(currentDate.getHours() - 24);
 
-            // filter the statuses older 24 hours
             user.statusContent = user.statusContent.filter(entry => {
-                // make a variable to hold the date of status upload
                 const entryDate = new Date(entry.statusUpdatedAt.currentDate + ' ' + entry.statusUpdatedAt.formattedTime);
-                return entryDate >= twentyFourHourAgo
-            })
+                return entryDate >= twentyFourHoursAgo;
+            });
 
-        })
+            if (user.statusContent.length === 0) {
+                user.status = false;
+            }
+
+            user.markModified('status');
+            user.markModified('statusContent');
+            await user.save();
+        }
     } catch (error) {
-        
+        console.error('Error:', error);
     }
-})
+});
 
+
+// get the statuses
+
+const getStatuses = AsyncHandler(async (req, res) => {
+    const status = await User.find({status:true});
+    // const statuses = status.map((userStatus) => {
+    //     return userStatus.statusContent
+    // })
+    res.send(status);
+})
 
 
 
 module.exports = {
     register,
     getAllUsers,
-    addStatus
+    addStatus,
+    getStatuses
 }
