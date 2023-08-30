@@ -16,7 +16,15 @@ const getAllUsers = async() => {
     return response.data;
 }
 
+
+const getStatuses = async () => {
+    const response = await axios.get(`${url}/get-statuses`);
+    return response.data;
+}
+
+
 export const authService = {
     registerUser,
-    getAllUsers
+    getAllUsers,
+    getStatuses
 }

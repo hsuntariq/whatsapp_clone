@@ -1,11 +1,39 @@
 import { BiArrowBack } from 'react-icons/bi'
+import {useEffect} from 'react';
 import { AiOutlineClose } from 'react-icons/ai'
-
+import { Carousel } from 'react-responsive-carousel';
 import {Link, useParams} from 'react-router-dom'
 import { data } from './data';
+import {  getStatuses,reset } from './features/auth/authSlice'
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import {useSelector,useDispatch} from 'react-redux'
 const Status = () => {
-    const { id } = useParams();
-    const user = data.find(user => user?.id === id);
+    const { _id } = useParams();
+    const user = data.find(user => user?.id === _id);
+    const { statuses, isLoading, isError, message } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    try {
+      dispatch(getStatuses())
+    } catch (error) {
+      toast(error);
+    }
+    dispatch(reset());
+  }, [dispatch, isError, message]);
+  
+  const findStatus = () => {
+      const user =  statuses.find(user => user._id === _id);
+      return user
+  }
+
+  useEffect(()=>{
+    findStatus();
+  },[])
+console.log(findStatus())
+
   return (
     <>
         <div className="status-screen">
@@ -18,15 +46,25 @@ const Status = () => {
                       </Link>
                   <div className="status-image">
                     <div className="user-status-details">
-                        <div className="user-image">
-                            <img src={user?.image} alt="" />
-                        </div>
-                        <div className="user-name">
-                                <h4>{user?.name}</h4>
-                                <p>{user?.time}</p>
-                        </div>
+                        
+                        
                       </div>
-                    <img src="https://plus.unsplash.com/premium_photo-1672136996764-96ad5bf50a8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&w=1000&q=80" alt="" />
+                      <Carousel showThumbs={false} dynamicHeight={true}>
+                      {findStatus()?.statusContent?.map((content,index) => {
+                        return <div key={index}>
+                          <img src={content.status} alt={`Status ${index}`} />
+                          <div className="user-image" style={{zIndex:'222',position:'absolute',top:'10px',left:'25px'}}>
+                            <img src={findStatus()?.photo} alt="" />
+                        </div>
+                          <p style={{position:'absolute',top:'35px',left:'75px',color:'gray',color:'gray'}}>{content.statusUpdatedAt?.formattedTime}</p>
+                          <div style={{position:'absolute',top:'15px',left:'75px',color:'gray'}} className="user-name">
+                                <h4>{findStatus()?.username}</h4>
+                        </div>
+
+                        </div>
+                      })}
+                    </Carousel>
+                      
                 </div>
             </div>
         </div>

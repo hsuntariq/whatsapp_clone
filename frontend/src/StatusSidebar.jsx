@@ -1,20 +1,19 @@
 import {AiOutlineClose, AiOutlineLoading} from 'react-icons/ai'
 import RecentStatus from './RecentStatus'
-import {data} from './data.js'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { getAllUsers, reset } from './features/auth/authSlice'
+import {  getStatuses,reset } from './features/auth/authSlice'
 const StatusSidebar = () => {
-  const { allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const { statuses, isLoading, isError, message } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
     try {
-      dispatch(getAllUsers());
+      dispatch(getStatuses())
     } catch (error) {
       toast(error);
     }
@@ -44,8 +43,8 @@ const StatusSidebar = () => {
               <p style={{color:'#6d7276',margin:'0.5rem 1rem'}}>Recent</p>
 
               {/*  map over the statuses */}
-            {!isLoading ? (allUsers?.map((status)=>{
-              return <RecentStatus key={status.id} {...status} />
+            {!isLoading ? (statuses?.map((status)=>{
+              return <RecentStatus key={status._id} {...status} />
             })) : (
               <div className="loader"></div>
             ) }
@@ -61,8 +60,8 @@ const StatusSidebar = () => {
                 <AiOutlineLoading className='icon icon2'/>
                 <AiOutlineLoading className='icon icon3'/>
               </div>
-                <div className="text">
-                  <p style={{width:'max-content'}}>Click on the contact to view their status updates</p>
+                <div className="text" style={{margin:'20rem auto'}}>
+                  <p style={{textAlign:'center'}}>Click on the contact to view their status updates</p>
                 </div>
             </div>
         </div>
