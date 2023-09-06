@@ -54,6 +54,16 @@ export const getStatuses = createAsyncThunk('auth/get-status',async(_,thunkApi)=
     }
 })
 
+export const addStatus = createAsyncThunk('auth/add-status', async (status,id, thunkApi) => {
+    try {
+        return await authService.addStatus(status,id);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkApi.rejectWithValue(message);
+    }
+})
+
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -106,6 +116,20 @@ export const authSlice = createSlice({
                     state.message = action.payload
             })
             .addCase(getStatuses.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.statuses = action.payload;
+            })
+            .addCase(addStatus.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(addStatus.rejected, (state, action) => {
+                    state.isLoading = false;
+                    state.isSuccess = false;
+                    state.isError= true;
+                    state.message = action.payload
+            })
+            .addCase(addStatus.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.statuses = action.payload;

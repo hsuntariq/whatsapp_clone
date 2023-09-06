@@ -1,9 +1,29 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 
 const RecentStatus = ({_id,username,photo,statusContent}) => {
+  const {user, statuses, isLoading, isError, message } = useSelector(state => state.auth);
+
+  const findStatus = () => {
+      const user =  statuses.find(user => user._id === _id);
+      return user
+  }
+
+  useEffect(()=>{
+    findStatus();
+  },[])
+
+  const getTotal = () => {
+    const total = findStatus()?.statusContent?.length
+    return total;
+  }
+
+// console.log(console.log(getTotal()))
+
   return (
     <>
-        <Link to={`status-content/${_id}`} style={{color:'white',textDecoration:'none'}}>
+        <Link to={`/status-content/${_id}`} style={{color:'white',textDecoration:'none'}}>
         
         <div className="status-item" style={{padding:'0.5rem 0',margin:0}}>
               <div className="status-user">
@@ -16,6 +36,9 @@ const RecentStatus = ({_id,username,photo,statusContent}) => {
                 <div className="status-time">
                   {/* <p>{time}</p> */}
                 </div>
+                {findStatus()?.statusContent?.map((u,index)=>{
+                  return <div key={index} className="border-div"></div>
+                })}
               </div>
             </div> 
             </Link>

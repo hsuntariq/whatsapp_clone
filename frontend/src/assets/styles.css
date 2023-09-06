@@ -448,12 +448,22 @@ text-align:center !important;
     justify-content: center;
 }
 .status-image img{
-    height:90%;
-    object-fit: contain;
+    /* height:90%; */
+    object-fit: cover;
     width:100%;
     /* object-fit:cover; */
     display:flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.slider .slide{
+    height:500px !important;
+}
+.slider .slide div{
+    height:100% !important;
+}
+
 
 .status-image{
     position:relative;
@@ -491,5 +501,35 @@ gap:0.5rem;
                 color:red !important
             }
 
-
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
             
+
+.ReactModal__Content{
+    background:#000 !important
+}
+
+.status-upload{
+    display:flex;
+    margin:auto;
+    background:#00A884;
+    padding:0.7rem 2rem;
+    cursor:pointer;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:20px
+}
+
+.border-div {
+  width: 5px; /* Adjust the width of the border divs as needed */
+  height: 5px; /* Adjust the height of the border divs as needed */
+  background-color: red; /* Set the background color of the border divs */
+  border-radius: 50%; /* Create a circular shape */
+  margin-right: 5px; /* Adjust the margin as needed */
+  display: inline-block; /* Display divs inline */
+}

@@ -22,9 +22,15 @@ const getStatuses = async () => {
     return response.data;
 }
 
+const addStatus = async(status,id) => {
+    const response = await axios.put(`${url}/update-status/${id}`, status);
+    return response.data;
+}
+
 
 export const authService = {
     registerUser,
     getAllUsers,
-    getStatuses
+    getStatuses,
+    addStatus
 }
