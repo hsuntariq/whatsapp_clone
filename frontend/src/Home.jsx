@@ -5,11 +5,12 @@ import './assets/styles.css'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { reset } from './features/auth/authSlice';
+import { toast } from 'react-toastify';
 const Home = () => {
-  const { user } = useSelector(state => state.auth);
+  const { user,isError,message } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-    
+  
   return (
     <>
       <main>

@@ -1,6 +1,5 @@
 import { Container } from 'react-bootstrap'
 import './assets/styles.css'
-import {data} from './data'
 import Header from './Header'
 import { FaSearch } from 'react-icons/fa';
 import { MdFilterList } from 'react-icons/md';
@@ -11,10 +10,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getAllUsers, reset } from './features/auth/authSlice';
+import { addChat } from './features/chat/chatSlice';
 
 const Sidebar = () => {
   const [focus, setFocus] = useState(false);
-  const { allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const { user,allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const { chats, c_isLoading, c_isError, c_message } = useSelector(state => state.chat);
   const dispatch = useDispatch();
   useEffect(() => {
     if (isError) {
@@ -27,6 +28,18 @@ const Sidebar = () => {
     }
     dispatch(reset());
   }, [dispatch, isError, message]);
+  const addChats = (id) => {
+    if (c_isError) {
+      console.log(c_message)
+    } else {
+      const data = {
+        sender_id: user._id,
+        receiver_id:id
+      }
+      dispatch(addChat(data))
+    }
+    // alert(id)
+  }
   return (
     <>
       <Container className='sidebar'>
@@ -45,11 +58,13 @@ const Sidebar = () => {
             {<MdFilterList />}
           </div>
         </section>
-        {}
-        {allUsers?.map((person) => {
-          return (
+        {isLoading ? (
+          <h1>Loading</h1>
+        ): (
+          allUsers?.map((person) => {
+            return (
             <>
-              <Link key={person.id} to={`/message/${person._id}`} style={{color:'white',textDecoration:'none'}}>
+              <Link onClick={()=>addChats(person._id)} key={person.id} to={`/message/${person._id}`} style={{color:'white',textDecoration:'none'}}>
               <div  className="item">
                 <div className="left">
 
@@ -73,7 +88,9 @@ const Sidebar = () => {
 
             </>
           )
-        })}
+        })
+        )}
+        
       </Container>
     </>
   )

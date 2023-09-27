@@ -24,7 +24,7 @@ const StatusSidebar = () => {
       toast(error);
     }
     dispatch(reset());
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, message,statuses]);
   
     const [isModalOpen, setIsModalOpen] = useState(false);
 

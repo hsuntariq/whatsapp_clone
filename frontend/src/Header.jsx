@@ -22,7 +22,7 @@ const Header = () => {
             <div className="icons" >
                   <BsChatLeftTextFill />
                   <MdGroup/>
-                  <Link to={`/status/${user._id}`} style={{color:'white',textDecoration:'none'}}>
+                  <Link to={`/status/${user?._id}`} style={{color:'white',textDecoration:'none'}}>
                   
                   <div className="status-icons" style={{position:'relative',marginRight:'1rem'}}>
                     <AiOutlineLoading className='icon icon1' style={{position:'absolute'}} />

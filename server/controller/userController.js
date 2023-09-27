@@ -16,12 +16,25 @@ const register = AsyncHandler(async (req, res) => {
         const newUser = await User.create({
             username,phone,password:hashedPassword,photo
         })
+        // store the user in the session
+        req.session.user = newUser;
+        // console.log(req.session.user);
         res.json(newUser)
     } else {
         res.status(400);
         throw new Error('Phone number already registered');
     }
 
+})
+
+// get the user from the session
+
+const getUserSession = AsyncHandler(async(req,res)=>{
+    if (req.session.user) {
+        res.json(req.session.user)
+    } else {
+        throw new Error('Not Authorized');
+    }
 })
 
 
@@ -112,5 +125,6 @@ module.exports = {
     register,
     getAllUsers,
     addStatus,
-    getStatuses
+    getStatuses,
+    getUserSession
 }

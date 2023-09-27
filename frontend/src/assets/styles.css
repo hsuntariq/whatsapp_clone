@@ -9,11 +9,15 @@ body{
     color:white;
 }
 
+::-webkit-scrollbar{
+    width:2px;
+}
+
 .sidebar{
     min-width:400px !important;
     background-color: #111B21;
     height:100vh;
-
+    overflow-y:scroll;
 }
 
 
@@ -532,4 +536,38 @@ gap:0.5rem;
   border-radius: 50%; /* Create a circular shape */
   margin-right: 5px; /* Adjust the margin as needed */
   display: inline-block; /* Display divs inline */
+}
+
+
+.messages{
+    height:90%;
+    overflow-y:scroll;
+}
+
+.messages::-webkit-scrollbar{
+    width: 2px;
+}
+
+.sent{
+    background-color: #00A884;
+    width: max-content;
+    max-width: 50%;
+    word-wrap: break-word;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.4rem;
+    border-radius: 5px;
+    margin-left: auto;
+}
+
+
+.received{
+    background-color: #172026;
+    width: max-content;
+    max-width: 50%;
+    word-wrap: break-word;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.4rem;
+    border-radius: 5px;
+    margin-right: auto;
+    color:black;
 }

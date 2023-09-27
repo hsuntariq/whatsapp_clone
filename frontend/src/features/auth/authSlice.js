@@ -2,7 +2,7 @@ import {
     createSlice,
     createAsyncThunk
 } from "@reduxjs/toolkit";
-import {
+    import {
     authService
 } from "./authService";
 
