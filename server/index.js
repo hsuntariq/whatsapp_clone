@@ -20,8 +20,14 @@ const io = new Server(server, {
         origin: 'http://localhost:3001',
         methods:["GET","POST"],
     },
-
 })
+
+// listen to the socket connection
+io.on('connection', (socket) => {
+    console.log(socket.id);
+})
+
+
 // connect to the database
 
 connectDB()
