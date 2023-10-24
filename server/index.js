@@ -12,19 +12,28 @@ const {
 } = require('./middlewares/errorMiddleware');
 // allow cross site requests
 app.use(cors());
-// create an http server
-
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3001',
-        methods:["GET","POST"],
-    },
+        origin:['http://localhost:5173','http://127.0.0.1:5173/'],
+        methods:['GET','POST']
+    }
 })
 
 // listen to the socket connection
 io.on('connection', (socket) => {
-    console.log(socket.id);
+    console.log(`User connected on host:${socket.id}`);
+    socket.on('join_room', (data) => {
+        console.log(data.room);
+        socket.join(data.room);
+        const roomSize = io.sockets.adapter.rooms.get(data.room)?.size || 0;
+        console.log(`Users in room ${data.room}: ${roomSize}`);
+
+    })
+    socket.on('sent_message', (data) => {
+        socket.to(data.room).emit('received_message', data);
+        console.log(data)
+    })
 })
 
 

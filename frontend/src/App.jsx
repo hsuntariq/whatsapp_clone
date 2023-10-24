@@ -19,7 +19,7 @@ const App = () => {
           <Route path='/register' element={<Register />} />
           <Route path='/status/:_id' element={<StatusSidebar />}></Route>
           <Route path='/status-content/:_id' element = {<Status/>} />
-          <Route path='/message/:id' element = {<MessageScreen/>} />
+          <Route path='/message/:id/:chat_id' element = {<MessageScreen/>} />
           <Route path='/' element = {<Home/>} />
       </Routes>
       </Router>

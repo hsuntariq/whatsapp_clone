@@ -1,16 +1,14 @@
 import { Container } from 'react-bootstrap'
 import './assets/styles.css'
 import Header from './Header'
-import { FaSearch } from 'react-icons/fa';
-import { MdFilterList } from 'react-icons/md';
-import { FiArrowRight } from 'react-icons/fi';
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getAllUsers, reset } from './features/auth/authSlice';
 import { addChat } from './features/chat/chatSlice';
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3001');  
 
 const Sidebar = () => {
   const [focus, setFocus] = useState(false);
@@ -40,32 +38,32 @@ const Sidebar = () => {
     }
     // alert(id)
   }
+
+  console.log(chats);
+
+  const connectChat = () => {
+    // console.log(chats._id)
+    socket.emit('join_room', {room:chats._id})
+  }
+
+
+
   return (
     <>
       <Container className='sidebar'>
-        <Header />
-        <section className="search-section">
-          <div className="search-bar">
-            {focus ? (
-                <span style={{color:'#00A884',transition:'all 0.25s',rotate:'180deg',fontSize:'1.5rem',alignSelf:'flex-start'}}>{<FiArrowRight/>}</span>
-            ): (
-                <span style={{color:'#697881',transition:'all 0.25s',rotate:'0deg'}}>{<FaSearch/>}</span>
-
-            )}
-            <input onFocus={()=>setFocus(true)} onBlur={()=>setFocus(false)}  type="text" placeholder= {focus ? '' : 'Search or start a new chat'} className="search" />
-          </div>
-          <div className="filter">
-            {<MdFilterList />}
-          </div>
-        </section>
+        <Header focus={focus} setFocus={setFocus} />
+        
         {isLoading ? (
           <h1>Loading</h1>
         ): (
           allUsers?.map((person) => {
             return (
             <>
-              <Link onClick={()=>addChats(person._id)} key={person.id} to={`/message/${person._id}`} style={{color:'white',textDecoration:'none'}}>
-              <div  className="item">
+                <Link key={person._id} onClick={() => {
+                  addChats(person._id);
+                  connectChat();
+              }} to={`/message/${person._id}/${chats?._id}`} style={{color:'white',textDecoration:'none'}}>
+              <div  className="item" >
                 <div className="left">
 
                 <div className="image">

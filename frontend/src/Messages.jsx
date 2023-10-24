@@ -1,13 +1,18 @@
-import { useEffect,useRef } from 'react';
+import { useEffect,useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3001');
 const Messages = () => {
+    const [messages, setMessages] = useState([]);
     const { chats, c_isLoading } = useSelector(state => state.chat);
     const { user } = useSelector(state => state.auth);
-    // useEffect(() => {
-    //     dispatch
-    // })
+  useEffect(() => {
+    socket.on('received_message', (data) => {
+      setMessages([...messages, data]);
+      console.log(messages);
+    })
+  }, [messages]);
     const { id } = useParams()
     // console.log(id === user?._id)
 
@@ -36,6 +41,7 @@ const Messages = () => {
                             </div>
                     </>
                 })}
+
                 {/* {console.log(chats.chat)} */}
             </div> 
         </>
