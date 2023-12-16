@@ -28,9 +28,16 @@ const addStatus = async(status,id) => {
 }
 
 
+const findUser = async(id) => {
+    const response = await axios.get(`${url}/find-user/${id}`);
+    return response.data;
+}
+
+
 export const authService = {
     registerUser,
     getAllUsers,
     getStatuses,
-    addStatus
+    addStatus,
+    findUser
 }

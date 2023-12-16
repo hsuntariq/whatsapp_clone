@@ -17,6 +17,7 @@ const initialState = {
     message: '',
     allUsers: [],
     statuses:[],
+    userInfo:[]
 }
 
 
@@ -62,6 +63,17 @@ export const addStatus = createAsyncThunk('auth/add-status', async (status,id, t
         return thunkApi.rejectWithValue(message);
     }
 })
+
+
+export const findUser = createAsyncThunk('auth/findUser',async(id,thunkApi)=> {
+    try {
+        return authService.findUser(id);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) && error.message || error.toString();
+        return thunkApi.rejectWithValue(message)
+    }
+})
+
 
 
 export const authSlice = createSlice({
@@ -133,6 +145,20 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.statuses = action.payload;
+            })
+            .addCase(findUser.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(findUser.rejected, (state, action) => {
+                    state.isLoading = false;
+                    state.isSuccess = false;
+                    state.isError= true;
+                    state.message = action.payload
+            })
+            .addCase(findUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.userInfo = action.payload;
             })
     }
 })

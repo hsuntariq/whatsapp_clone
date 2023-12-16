@@ -119,6 +119,16 @@ const getStatuses = AsyncHandler(async (req, res) => {
 
 
 
+const findSingleUser =AsyncHandler(async (req,res) => {
+    const findUser = await User.findOne({ _id: req.params.id });
+    if (!findUser) {
+        res.status(404);
+        throw new Error('User not found')
+    } else {
+        res.send(findUser);
+    }
+})
+
 
 
 module.exports = {
@@ -126,5 +136,6 @@ module.exports = {
     getAllUsers,
     addStatus,
     getStatuses,
-    getUserSession
+    getUserSession,
+    findSingleUser
 }

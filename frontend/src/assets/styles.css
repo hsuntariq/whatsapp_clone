@@ -1,5 +1,11 @@
-::-webkit-scrollbar-track{
-    width: 0;
+
+::-webkit-scrollbar{
+    width: 10px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: var(#000000);
 }
 
 body{
@@ -14,8 +20,8 @@ body{
 }
 
 .sidebar{
-    min-width:400px !important;
-    max-width:400px !important;
+    min-width:410px !important;
+    max-width:410px !important;
     background-color: #111B21;
     height:100vh;
     overflow-y:scroll;
@@ -231,9 +237,13 @@ footer{
     min-width: 100vw;
 }
 
+.orange{
+    color: #ff9100 !important;
+}
+
 .green{
     height:30%;
-    background: #01B29D;
+    background: #ff9100;
 }
 
 
@@ -310,14 +320,25 @@ opacity:0;
     position:absolute;
     bottom: 10%;
     right:20%;
-    background-color: #00A884;
+    background-color: #fb9205;
     border-radius: 50%;
     cursor:pointer;
     font-size:1rem
 }
 
+input{
+    border-radius:4px !important;
+}
+
+input:focus{
+    border: 1px solid #fb9205 !important;
+    box-shadow: 1px 0px 3px 1px #fb9205;
+
+}
+
+.color{}
 .register{
-background-color: #00A884;
+background-color: #fb9205;
 width: 100%;
 padding:0.5rem;
 border:none;
@@ -325,8 +346,12 @@ border-radius: 5px;
 color:white;
 }
 
+.phone input{
+    width: 100% !important;
+}
+
 .register:hover{
-    background-color: #01B29D;
+    background-color: #ad6200 !important;
     cursor: pointer;
 }
 
@@ -446,7 +471,7 @@ text-align:center !important;
 }
 .status-image{
     height: 100vh !important;
-    width: 400px;
+    width: 550px;
     margin: auto;
     align-items: center;
     display: flex;
@@ -572,4 +597,30 @@ gap:0.5rem;
     border-radius: 5px;
     margin-right: auto;
     color:black;
+}
+
+.user-info{
+    height: 100vh;
+    width: 100%;
+    width: 60%;
+    background: #202C33;
+    position: fixed;
+    top: 0;
+    right:-100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-profile{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: capitalize;
+}
+
+.show-user-info{
+    right:0 !important;
+
 }

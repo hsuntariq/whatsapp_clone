@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { getAllUsers, reset } from "./features/auth/authSlice"
-const UserHeader = () => {
+const UserHeader = ({ handleUserClick }) => {
   const { allUsers, isLoading, isError, message } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,27 +21,27 @@ const UserHeader = () => {
     }
     dispatch(reset());
   }, [dispatch, isError, message]);
-    const {id} = useParams();
-    
-    const user = allUsers?.find(user => user._id === id);
+  const { id } = useParams();
+
+  const user = allUsers?.find(user => user._id === id);
   return (
     <>
-          <div className="header" style={{minWidth:'max-content'}} >
-              <div className="left" style={{margin:'0'}}>
-                  <div className="image" style={{height:'50px'}}>
-                      <img  src={user?.photo}alt="" />
-                  </div>
-                  <div className="number">
-                      {user?.username}
-                  </div>
-            </div>
-              <div className="right">
-                  <div className="icons">
-                      <FaSearch/>
-                      <FaEllipsisV/>
-                  </div>
-            </div>
-          </div> 
+      <div className="header" style={{ minWidth: 'max-content' }} >
+        <div className="left" onClick={handleUserClick} style={{ margin: '0', cursor: 'pointer' }}>
+          <div className="image" style={{ height: '50px' }}>
+            <img src={user?.photo} alt="" />
+          </div>
+          <div className="number">
+            {user?.username}
+          </div>
+        </div>
+        <div className="right">
+          <div className="icons">
+            <FaSearch />
+            <FaEllipsisV />
+          </div>
+        </div>
+      </div>
     </>
   )
 }

@@ -16,7 +16,7 @@ const Header = ({focus,setFocus}) => {
 
   return (
     <>
-        <div className="container" style={{position:'sticky',top:'0',width:'400px'}}>
+        <div className="container" style={{position:'sticky',top:'0',width:'410px'}}>
          <div className="header" >
             <div className="avatar">
           { user?.photo ? (
