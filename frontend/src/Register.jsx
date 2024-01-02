@@ -77,10 +77,15 @@ const Register = () => {
 
   // handle the side effects
   useEffect(() => {
-    if (isSuccess || user) {
+    if (user) {
       navigate('/');
       toast.success(`Welcome ${user?.username.toUpperCase()}`);
-    } if (isError) {
+    } else if (!user) {
+      toast.success(`Hoping to see you again`);
+
+    }
+
+    else if (isError) {
       toast(message);
     }
     dispatch(reset())

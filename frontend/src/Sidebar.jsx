@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap'
 import './assets/styles.css'
 import Header from './Header'
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getAllUsers, reset } from './features/auth/authSlice';
@@ -13,20 +13,28 @@ const socket = io.connect('http://localhost:3001');
 
 const Sidebar = () => {
   const [focus, setFocus] = useState(false);
-  const { user, allUsers,isLoading, isError, message } = useSelector(state => state.auth);
-  const { chats,c_isLoading, c_isError, c_message } = useSelector(state => state.chat);
+  const { user, allUsers, isLoading, isError, message } = useSelector(state => state.auth);
+  const { chats, c_isLoading, c_isError, c_message } = useSelector(state => state.chat);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    try {
-      dispatch(getAllUsers());
-    } catch (error) {
-      toast(error);
+    if (!user) {
+      navigate('/register')
+
+    } else {
+
+      if (isError) {
+        toast.error(message);
+      } else {
+        try {
+          dispatch(getAllUsers());
+        } catch (error) {
+          toast(error);
+        }
+      }
     }
     dispatch(reset());
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, message, navigate, user]);
   const addChats = (id) => {
     if (c_isError) {
       console.log(c_message)
@@ -49,13 +57,14 @@ const Sidebar = () => {
 
 
 
+
   return (
     <>
       <Container className='sidebar'>
         <Header focus={focus} setFocus={setFocus} />
         {isLoading && c_isLoading ? (
           <div className='loader'>
-            <HashLoader color='#FF9100' size={100} />
+            <HashLoader color='#FF9100' size={40} />
           </div>
         ) : (
           allUsers?.map((person) => {

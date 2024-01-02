@@ -73,6 +73,16 @@ export const findUser = createAsyncThunk('auth/findUser',async(id,thunkApi)=> {
         return thunkApi.rejectWithValue(message)
     }
 })
+export const logout = createAsyncThunk('auth/logout',async(_,thunkApi)=> {
+    try {
+        return authService.logoutUser()
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) && error.message || error.toString();
+        return thunkApi.rejectWithValue(message)
+    }
+})
+
+
 
 
 
@@ -159,6 +169,20 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.userInfo = action.payload;
+            })
+            .addCase(logout.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(logout.rejected, (state, action) => {
+                    state.isLoading = false;
+                    state.isSuccess = false;
+                    state.isError= true;
+                    state.message = action.payload
+            })
+            .addCase(logout.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.user = null;
             })
     }
 })

@@ -34,10 +34,15 @@ const findUser = async(id) => {
 }
 
 
+const logoutUser = () => {
+    return localStorage.removeItem('user');
+}
+
 export const authService = {
     registerUser,
     getAllUsers,
     getStatuses,
     addStatus,
-    findUser
+    findUser,
+    logoutUser
 }

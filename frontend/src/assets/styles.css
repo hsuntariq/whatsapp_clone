@@ -479,12 +479,13 @@ text-align:center !important;
 }
 .status-image img{
     /* height:90%; */
-    object-fit: cover;
+    object-fit: contain;
     width:100%;
     /* object-fit:cover; */
     display:flex;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 4/3;
 }
 
 .slider .slide{
@@ -503,7 +504,7 @@ text-align:center !important;
     width:50px;
     height: 50px;
     border-radius:50%;
-    object-fit:cover;
+    /* object-fit:cover; */
 }
 
 .user-status-details{
@@ -623,4 +624,38 @@ gap:0.5rem;
 .show-user-info{
     right:0 !important;
 
+}
+
+
+.menu-user{
+    position:relative;
+}
+
+.menu-user-info{
+    scale:0;
+    transition:all 0.3s;
+    position: absolute;
+    right:-100%;
+    top: -5px;
+    padding:0.2rem;
+    background: #000;
+    z-index: 333;
+}
+
+.show-settings{
+    /* transition:all 0.3s; */
+    scale:1;
+    transform: translate(-20px,40px);
+}
+
+.menu-user-info ul{
+    list-style: none;
+    padding:0 ;
+    margin: 0;
+    margin: 1rem;
+}
+
+.menu-user-info ul li{
+    margin-bottom: 1rem;
+    cursor: pointer;
 }

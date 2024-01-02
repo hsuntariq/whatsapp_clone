@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
 import UserHeader from "./UserHeader"
@@ -22,6 +22,15 @@ const MessageScreen = () => {
   const { user } = useSelector(state => state.auth);
   // get the id and chat id from the params
   const { id, chat_id } = useParams()
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      navigate('/register')
+    }
+  }, [navigate, user])
+
+
   const user_info = useRef();
   // show user info
   const handleUserClick = () => {

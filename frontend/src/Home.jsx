@@ -7,15 +7,19 @@ import { useEffect } from 'react';
 import { reset } from './features/auth/authSlice';
 import { toast } from 'react-toastify';
 const Home = () => {
-  const { user,isError,message } = useSelector(state => state.auth);
+  const { user, isError, message } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  useEffect(() => {
+    if (!user) {
+      navigate('/register')
+    }
+  }, [navigate, user])
   return (
     <>
       <main>
-        <Sidebar/>
-        <MessageBar/>
+        <Sidebar />
+        <MessageBar />
       </main>
     </>
   )
